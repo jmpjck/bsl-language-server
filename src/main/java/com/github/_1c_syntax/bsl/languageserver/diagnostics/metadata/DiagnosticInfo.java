@@ -21,10 +21,11 @@
  */
 package com.github._1c_syntax.bsl.languageserver.diagnostics.metadata;
 
+import com.github._1c_syntax.bsl.languageserver.configuration.Language;
 import com.github._1c_syntax.bsl.languageserver.configuration.LanguageServerConfiguration;
 import com.github._1c_syntax.bsl.languageserver.diagnostics.BSLDiagnostic;
 import com.github._1c_syntax.bsl.languageserver.utils.Resources;
-import com.github._1c_syntax.mdclasses.metadata.additional.ModuleType;
+import com.github._1c_syntax.mdclasses.mdo.support.ModuleType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 
@@ -72,6 +73,24 @@ public class DiagnosticInfo {
 
   public DiagnosticCode getCode() {
     return diagnosticCode;
+  }
+
+  public String getDiagnosticCodeDescriptionHref() {
+    var language = configuration.getLanguage();
+    boolean useDevSite = configuration.isUseDevSite();
+
+    var siteRoot = configuration.getSiteRoot();
+    var devSuffix = useDevSite ? "/dev" : "";
+    var languageSuffix = language == Language.EN ? "/en" : "";
+
+    var siteDiagnosticsUrl = String.format(
+      "%s%s%s/diagnostics/",
+      siteRoot,
+      devSuffix,
+      languageSuffix
+    );
+
+    return siteDiagnosticsUrl + diagnosticCode.getStringValue();
   }
 
   public String getName() {

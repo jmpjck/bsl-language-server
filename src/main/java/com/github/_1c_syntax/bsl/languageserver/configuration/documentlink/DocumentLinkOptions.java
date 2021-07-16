@@ -35,6 +35,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DocumentLinkOptions {
-  private boolean useDevSite;
-  private String siteRoot = "https://1c-syntax.github.io/bsl-language-server";
+  private boolean showDiagnosticDescription;
 }
